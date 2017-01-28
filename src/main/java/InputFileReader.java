@@ -2,6 +2,7 @@ import java.io.BufferedReader;
 import java.io.FileNotFoundException;
 import java.io.FileReader;
 import java.io.IOException;
+import java.util.ArrayList;
 import java.util.HashMap;
 
 /**
@@ -18,7 +19,13 @@ public class InputFileReader {
         this.fileName = fileName;
     }
 
-    public HashMap<Integer, House> read() {
+    public ArrayList<Generator> readGenerators() {
+
+
+
+    }
+
+    public HashMap<Integer, House> readHousePower() {
 
         HashMap<Integer, House> houses = new HashMap<Integer, House>();
 
@@ -58,6 +65,18 @@ public class InputFileReader {
         return houses;
 
     }
+
+
+    public void makeMap(ArrayList<SuperNode> superNodes,
+                        ArrayList<Node> nodes,
+                        ArrayList<Generator> generators,
+                        ArrayList<House> houses,
+                        ArrayList<Link> links) {
+
+
+
+    }
+
 
 
 }

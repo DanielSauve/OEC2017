@@ -5,12 +5,34 @@ import java.util.List;
  * Created by danielsauve on 2017-01-28.
  */
 public class MetaFunctions {
-    public static void generatorInfoPerHour(Generator generator, List<SuperNode> graph, Integer hour){
+    public static void generatorInfoPerHour(Generator generator, PathPlanner planner, Integer hour){
+        planner.getTopology(hour);
+
+        Float cost = 0F;
+
+        for (SuperNode node:planner.graph) {
+            if (node instanceof House) {
+                if (((House) node).getOn(hour) == 1) {
+                    cost += planner.costs.get(node);
+                }
+            }
+        }
+
+        Integer revenue = planner.paths.keySet().size() * 3000;
+
+        int power = planner.capacity.get(generator);
+
+        System.out.println("For Generator " + generator.toString() + " at hour " + hour.toString() + ".");
+        System.out.println("Cost = " + cost);
+        System.out.println("revenue = " + revenue);
+        System.out.println("power remaining = " + power);
+
 
     }
 
-    public static List<SuperNode> houseInfoPerHour(House house, PathPlanner planner){
-        return planner.findPath(house);
+    public static List<SuperNode> houseInfoPerHour(House house, PathPlanner planner, int hour){
+        planner.getTopology(hour);
+        return planner.paths.get(house);
     }
 
     public static void cutLink(SuperNode node1, SuperNode node2){
@@ -31,5 +53,16 @@ public class MetaFunctions {
             }
         }
         return onHouses;
+    }
+
+    public static void printPath(List<SuperNode> path){
+        for (int i = 0; i < path.size(); i++) {
+            SuperNode node = path.get(i);
+            System.out.print(node);
+            if (i < path.size() - 1){
+                System.out.print(" --> ");
+            }
+        }
+        System.out.println();
     }
 }

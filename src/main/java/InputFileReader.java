@@ -1,6 +1,7 @@
 import java.io.*;
 import java.util.ArrayList;
 import java.util.HashMap;
+import java.util.List;
 import java.util.Scanner;
 
 /**
@@ -59,7 +60,7 @@ public class InputFileReader {
                 }
 
                 //Use for CSVs, or any common delimiter
-                String[] values = line.split(" ");
+                String[] values = line.split("\\s+");
 
                 //Do something with these values
 
@@ -150,7 +151,7 @@ public class InputFileReader {
                 }
 
                 //Use for CSVs, or any common delimiter
-                String[] values = line.split(" ");
+                String[] values = line.split("\\s+");
 
                 //Do something with these values
 
@@ -194,7 +195,7 @@ public class InputFileReader {
                 }
 
                 //Use for CSVs, or any common delimiter
-                String[] values = line.split(" ");
+                String[] values = line.split("\\s+");
 
                 //Do something with these values
 
@@ -238,7 +239,7 @@ public class InputFileReader {
                 }
 
                 //Use for CSVs, or any common delimiter
-                String[] values = line.split(" ");
+                String[] values = line.split("\\s+");
 
                 //Do something with these values
 
@@ -264,7 +265,7 @@ public class InputFileReader {
 
 
 
-    public void readHousePower(ArrayList<House> houses) {
+    public void readHousePower(HashMap<Integer, House> houses) {
 
         try {
 
@@ -278,8 +279,7 @@ public class InputFileReader {
                 }
 
                 //Use for CSVs, or any common delimiter
-                System.out.println("Line: " + line);
-                String[] values = line.split(",");
+                String[] values = line.split("\\s+");
 
                 //Do something with these values
 

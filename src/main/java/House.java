@@ -28,7 +28,7 @@ public class House extends SuperNode{
     }
 
     public String toString() {
-        return "H: " + this.id;
+        return "H:" + this.id;
     }
 
     public void setId(int id) {

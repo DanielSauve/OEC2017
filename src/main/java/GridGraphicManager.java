@@ -8,12 +8,13 @@ import java.util.ArrayList;
  */
 public class GridGraphicManager {
 
+    //This moves the grid when directional buttons clicked
     private Integer positionX;
     private Integer positionY;
 
     private GraphicPanel panel;
     private int scaleFactor;
-    private ArrayList<Pair<Integer, Integer>> generators;
+    private ArrayList<Generator> generators;
     private ArrayList<Pair<Integer, Integer>> controlNodes;
     private ArrayList<Pair<Integer, Integer>> houses;
     private ArrayList<Edge> edges;
@@ -22,23 +23,33 @@ public class GridGraphicManager {
     public GridGraphicManager(GraphicPanel newPanel) {
         this.panel = newPanel;
         this.scaleFactor = 1;
-        this.positionX = 0;
-        this.positionY = 0;
 
-        this.generators = new ArrayList<Pair<Integer, Integer>>();
+        //Set the current position of the display
+        this.positionX = 200;
+        this.positionY = 200;
+
+        this.generators = new ArrayList<Generator>();
         this.controlNodes = new ArrayList<Pair<Integer, Integer>>();
         this.houses = new ArrayList<Pair<Integer, Integer>>();
         this.edges = new ArrayList<Edge>();
 
+        //Setup the display
         this.setupGrid();
     }
 
+    /**
+     * Sets up the grid to display.
+     */
     private void setupGrid() {
 
+        Integer generatorSize = 50;
+        Integer houseSize = 50;
+        Integer controlSize = 50;
+
         //Generators
-        generators.add(new Pair<Integer, Integer>(0, 0));
-        generators.add(new Pair<Integer, Integer>(-100, -100));
-        generators.add(new Pair<Integer, Integer>(100, -100));
+        generators.add(new Generator(0, 0, generatorSize, "B1"));
+        generators.add(new Generator(-100, -100, generatorSize, "B1"));
+        generators.add(new Generator(100, -100, generatorSize, "B1"));
 
         //Control Nodes
         controlNodes.add(new Pair<Integer, Integer>(-100, -200));
@@ -67,14 +78,37 @@ public class GridGraphicManager {
         houses.add(new Pair<Integer, Integer>(450, 100)); //91
         houses.add(new Pair<Integer, Integer>(450, 200)); //92
 
-        houses.add(new Pair<Integer, Integer>(700, 0)); //61
-        houses.add(new Pair<Integer, Integer>(800, 0)); //62
-        houses.add(new Pair<Integer, Integer>(900, 0)); //63
-        houses.add(new Pair<Integer, Integer>(1000, 0)); //64
-        houses.add(new Pair<Integer, Integer>(1100, 0)); //65
+        houses.add(new Pair<Integer, Integer>(700, 0)); //71
+        houses.add(new Pair<Integer, Integer>(800, 0)); //72
+        houses.add(new Pair<Integer, Integer>(900, 0)); //73
 
-        houses.add(new Pair<Integer, Integer>(1100, 0)); //65
+        houses.add(new Pair<Integer, Integer>(700, -200)); //65
+        houses.add(new Pair<Integer, Integer>(800, -200)); //65
+        houses.add(new Pair<Integer, Integer>(900, -200)); //65
+        houses.add(new Pair<Integer, Integer>(1000, -200)); //65
+        houses.add(new Pair<Integer, Integer>(1100, -200)); //65
 
+        houses.add(new Pair<Integer, Integer>(100, -450)); //41
+        houses.add(new Pair<Integer, Integer>(200, -450)); //42
+        houses.add(new Pair<Integer, Integer>(300, -450)); //43
+
+        houses.add(new Pair<Integer, Integer>(100, -270)); //51
+        houses.add(new Pair<Integer, Integer>(200, -270)); //52
+        houses.add(new Pair<Integer, Integer>(300, -270)); //53
+
+
+        houses.add(new Pair<Integer, Integer>(-300, -270)); //11
+        houses.add(new Pair<Integer, Integer>(-400, -270)); //12
+        houses.add(new Pair<Integer, Integer>(-500, -270)); //13
+
+        houses.add(new Pair<Integer, Integer>(-300, -470)); //21
+        houses.add(new Pair<Integer, Integer>(-400, -470)); //22
+        houses.add(new Pair<Integer, Integer>(-500, -470)); //23
+
+        houses.add(new Pair<Integer, Integer>(-100, -570)); //31
+        houses.add(new Pair<Integer, Integer>(-100, -670)); //32
+        houses.add(new Pair<Integer, Integer>(-100, -770)); //33
+        houses.add(new Pair<Integer, Integer>(-100, -870)); //34
     }
 
     public void drawGrid(Graphics g1) {
@@ -82,37 +116,64 @@ public class GridGraphicManager {
 
         g2d.setPaint(Color.BLACK);
 
-        for( Pair<Integer, Integer> gen : generators ) {
-            drawGenerator(g2d, this.scaleFactor*(this.positionX+gen.getKey()), this.scaleFactor*(this.positionY+gen.getValue()));
+        //Draw all generators
+        for( Generator gen : generators ) {
+            drawGenerator(g2d, this.scaleFactor*(this.positionX+gen.x), this.scaleFactor*(this.positionY+gen.y));
+            g2d.drawString(gen.text, this.scaleFactor*(this.positionX+gen.x) + 5, this.scaleFactor*(this.positionY+gen.y) - 5);
         }
 
+        //Draw all control nodes
         for( Pair<Integer, Integer> controlNode : controlNodes ) {
             drawControl(g2d, this.scaleFactor*(this.positionX+controlNode.getKey()), this.scaleFactor*(this.positionY+controlNode.getValue()));
         }
+
+        //Draw all houses
         for( Pair<Integer, Integer> house : houses ) {
             drawHouse(g2d, this.scaleFactor*(this.positionX+house.getKey()), this.scaleFactor*(this.positionY+house.getValue()));
         }
 
+        //Draw all edges
         for( Edge edge : edges ) {
             g2d.drawLine(edge.x1,edge.y1,edge.x2,edge.y2);
         }
 
     }
 
+    /**
+     * Draws the representation of a house.
+     * @param g2d Graphics variable
+     * @param x x location to display
+     * @param y y location to display
+     */
     private void drawHouse(Graphics2D g2d, int x, int y) {
         g2d.drawRect(x, y, this.scaleFactor*50, this.scaleFactor*50);
     }
 
+    /**
+     * Draws the representation of a generator
+     * @param g2d Graphics variable
+     * @param x x location to display
+     * @param y y location to display
+     */
     private void drawGenerator(Graphics2D g2d, int x, int y) {
         int xset[] = {this.scaleFactor*x,this.scaleFactor*x+25,this.scaleFactor*x+50};
         int yset[] = {this.scaleFactor*y,this.scaleFactor*y-50,this.scaleFactor*y};
         g2d.drawPolygon(xset, yset, 3);
     }
 
+    /**
+     * Draws the representation of a control node
+     * @param g2d Graphics variable
+     * @param x x location to display
+     * @param y y location to display
+     */
     private void drawControl(Graphics2D g2d, int x, int y) {
         g2d.drawOval(this.scaleFactor*x, this.scaleFactor*y, this.scaleFactor*50, this.scaleFactor*25);
     }
 
+    /**
+     * Zooms in the display.
+     */
     public void increaseZoom() {
         if(this.scaleFactor < 10) {
             this.scaleFactor += 1;
@@ -120,6 +181,9 @@ public class GridGraphicManager {
         panel.repaint();
     }
 
+    /**
+     * Zoons out the display.
+     */
     public void decreaseZoom() {
         if(this.scaleFactor > 1) {
             this.scaleFactor -= 1;
@@ -127,26 +191,41 @@ public class GridGraphicManager {
         panel.repaint();
     }
 
+    /**
+     * Moves the display upwards.
+     */
     public void moveUp() {
         this.positionY += 50;
         panel.repaint();
     }
 
+    /**
+     * Moves the display downwards.
+     */
     public void moveDown() {
         this.positionY -= 50;
         panel.repaint();
     }
 
+    /**
+     * Moves the display left.
+     */
     public void moveLeft() {
         this.positionX += 50;
         panel.repaint();
     }
 
+    /**
+     * Moves the display right.
+     */
     public void moveRight() {
         this.positionX -= 50;
         panel.repaint();
     }
 
+    /**
+     * Object representation of an edge graphic.
+     */
     public class Edge {
 
         public Integer x1;
@@ -187,11 +266,82 @@ public class GridGraphicManager {
         }
     }
 
+    /**
+     * Object representation of a house graphic.
+     */
     public class House {
-        private Integer x;
-        private Integer y;
-        private Integer size;
+        public Integer x;
+        public Integer y;
+        public Integer size;
+        public String text;
 
+        public Integer mousex1;
+        public Integer mousey1;
+        public Integer mousex2;
+        public Integer mousey2;
+
+        public House(Integer x, Integer y, Integer size, String text) {
+            this.x = x;
+            this.y = y;
+            this.size = size;
+            this.text = text;
+
+            mousex1 = x;
+            mousex2 = x + size;
+            mousey1 = y;
+            mousey2 = y + size;
+        }
+
+    }
+
+    /**
+     * Object representation of a control node graphic.
+     */
+    public class ControlNode {
+        public Integer x;
+        public Integer y;
+        public String text;
+
+        public Integer mousex1;
+        public Integer mousey1;
+        public Integer mousex2;
+        public Integer mousey2;
+
+        public ControlNode(Integer x, Integer y, Integer size, String text) {
+            this.x = x;
+            this.y = y;
+            this.text = text;
+
+            mousex1 = x;
+            mousex2 = x + size;
+            mousey1 = y;
+            mousey2 = y + (size/2);
+        }
+    }
+
+    /**
+     * Object representation of a generator graphic.
+     */
+    public class Generator {
+        public Integer x;
+        public Integer y;
+        public String text;
+
+        public Integer mousex1;
+        public Integer mousey1;
+        public Integer mousex2;
+        public Integer mousey2;
+
+        public Generator(Integer x, Integer y, Integer size, String text) {
+            this.x = x;
+            this.y = y;
+            this.text = text;
+
+            mousex1 = x;
+            mousex2 = x + size;
+            mousey1 = y;
+            mousey2 = y + size;
+        }
     }
 
 }

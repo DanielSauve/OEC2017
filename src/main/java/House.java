@@ -3,7 +3,7 @@ import java.util.HashMap;
 /**
  * Created by puih123 on 2017-01-27.
  */
-public class House {
+public class House extends SuperNode{
 
     private int id;
 

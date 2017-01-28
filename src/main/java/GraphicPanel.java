@@ -1,3 +1,4 @@
+
 import javax.swing.*;
 import java.awt.*;
 
@@ -7,23 +8,17 @@ import java.awt.*;
 public class GraphicPanel extends JPanel {
 
     private double scale;
+    private GridGraphicManager gridManager;
 
     public GraphicPanel() {
         this.scale = 1.0;
-    }
-
-    public void draw(Graphics g) {
-        Graphics2D g2d = (Graphics2D) g;
-
-        g2d.setPaint(Color.BLACK);
-
-        g2d.drawLine(10,10,100,100);
+        this.gridManager = new GridGraphicManager(this);
     }
 
     @Override
     public void paintComponent(Graphics g) {
         super.paintComponent(g);
-        this.draw(g);
+        this.gridManager.drawGrid(g);
     }
 //
 //    @Override

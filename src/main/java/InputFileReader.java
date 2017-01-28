@@ -19,11 +19,11 @@ public class InputFileReader {
         this.fileName = fileName;
     }
 
-    public ArrayList<Generator> readGenerators() {
-
-
-
-    }
+//    public ArrayList<Generator> readGenerators() {
+//
+//
+//
+//    }
 
     public HashMap<Integer, House> readHousePower() {
 

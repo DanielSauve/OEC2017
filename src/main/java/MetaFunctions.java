@@ -65,4 +65,21 @@ public class MetaFunctions {
         }
         System.out.println();
     }
+
+    public static Float revenueInHour(int hour, PathPlanner planner) {
+        planner.getTopology(hour);
+        Float costs = 0F;
+        for(Float cost:planner.costs.values()) {
+            costs += cost;
+        }
+        return costs;
+    }
+
+    public static Float totalRevenueUpToHour(int hour, PathPlanner planner) {
+        Float costs = 0F;
+        for (int i = 1; i <= hour;i++) {
+            costs += revenueInHour(i,planner);
+        }
+        return costs;
+    }
 }

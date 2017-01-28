@@ -149,10 +149,34 @@ public class OEC2017 {
                     //TODO
                     break;
                 case 6:
-                    //TODO
+                    System.out.println("Which hour?");
+
+                    validInput = false;
+                    while (!validInput) {
+                        try {
+                            hour = Integer.parseInt(userIn.nextLine());
+                            validInput = true;
+                        } catch (NumberFormatException e) {
+                            System.out.println("Please enter valid integer option");
+                            continue;
+                        }
+                    }
+                    System.out.println("Revenue " + MetaFunctions.revenueInHour(hour, planner));
                     break;
                 case 7:
-                    //TODO
+                    System.out.println("Which hour?");
+
+                    validInput = false;
+                    while (!validInput) {
+                        try {
+                            hour = Integer.parseInt(userIn.nextLine());
+                            validInput = true;
+                        } catch (NumberFormatException e) {
+                            System.out.println("Please enter valid integer option");
+                            continue;
+                        }
+                    }
+                    System.out.println("Revenue " + MetaFunctions.totalRevenueUpToHour(hour, planner));
                     break;
                 default:
                     System.out.println("Not a valid option");

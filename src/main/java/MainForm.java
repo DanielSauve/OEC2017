@@ -14,7 +14,6 @@ public class MainForm {
     private JTextArea testTextArea;
     private JButton hourGoButton;
     private JPanel mainPanel;
-    private JPanel graphicPanel;
     private JPanel controlPanel;
     private JTextArea hourTextInput;
     private JButton decHourButton;
@@ -24,6 +23,7 @@ public class MainForm {
     private JTextArea node1TextBox;
     private JTextArea node2TextBok;
     private JButton deleteConnectionButton;
+    private GraphicPanel graphicPanel;
     private JFrame mainFrame;
 
     public MainForm() {

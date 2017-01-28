@@ -74,12 +74,12 @@ public class PathFinder {
                 List<SuperNode> nodes = link.getNeighbours();
                 SuperNode neighbour = null;
                 for (SuperNode node: nodes){
-                    if (!node.equals(source)){
+                    if (!node.equals(minimunNode)){
                         neighbour = node;
                     }
                 }
-                if (costToNode.get(neighbour) > costToNode.get(minimunNode) + minimumDistance){
-                    costToNode.put(neighbour, costToNode.get(minimunNode) + minimumDistance);
+                if (costToNode.get(neighbour) > link.getCost() + minimumDistance){
+                    costToNode.put(neighbour, link.getCost() + minimumDistance);
                     previousNode.put(neighbour, minimunNode);
                 }
             }
@@ -92,7 +92,7 @@ public class PathFinder {
         List<SuperNode> path = new ArrayList<SuperNode>();
         SuperNode temp = node;
         path.add(temp);
-        while (!temp.equals(source)){
+        while (!(previousNode.get(temp) == null)){
             path.add(previousNode.get(temp));
             temp = previousNode.get(temp);
         }

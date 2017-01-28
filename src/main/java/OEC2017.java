@@ -141,9 +141,9 @@ public class OEC2017 {
                             continue;
                         }
                     }
-                    House house = houseList.get(generator);
+                    House house = houses.get(generator);
                     List<SuperNode> houses1 =  MetaFunctions.houseInfoPerHour(house,planner, hour);
-                    System.out.println(houses1.toString());
+                    MetaFunctions.printPath(houses1);
                     break;
                 case 5:
                     //TODO

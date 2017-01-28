@@ -8,11 +8,11 @@ import java.util.List;
  * if a generator is over capacity
  */
 public class PathPlanner {
-    private HashMap<Generator, PathFinder> finders;
-    private HashMap<Generator, Integer> capacity;
-    private List<Generator> generators;
-    private List<SuperNode> graph;
-    List<List<SuperNode>> paths;
+    HashMap<Generator, PathFinder> finders;
+    HashMap<Generator, Integer> capacity;
+    List<Generator> generators;
+    List<SuperNode> graph;
+    HashMap<SuperNode, List<SuperNode>> paths;
     HashMap<SuperNode, Float> costs;
 
     public PathPlanner(List<Generator> generators, List<SuperNode> graph){
@@ -83,7 +83,7 @@ public class PathPlanner {
 
     public void getTopology(int hour) {
 
-        paths = new ArrayList<List<SuperNode>>();
+        paths = new HashMap<SuperNode, List<SuperNode>>();
         costs = new HashMap<SuperNode, Float>();
 
         for (SuperNode node: graph) {
@@ -100,7 +100,7 @@ public class PathPlanner {
                         }
                     }
                     capacity.put(generator, capacity.get(generator) - 3);
-                    paths.add(minFinder.getPath(node));
+                    paths.put(node, minFinder.getPath(node));
                     costs.put(node, cost);
                 }
             }

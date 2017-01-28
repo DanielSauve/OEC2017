@@ -2,12 +2,18 @@
  * Created by danielsauve on 2017-01-20.
  * ^^ HA. sauve
  */
-import org.sqlite.JDBC;
+
+import java.util.ArrayList;
+import java.util.HashMap;
 
 public class OEC2017 {
     public static void main(String[] args){
-        JDBC jdbc = new JDBC();
-        System.out.println("lol memes");
-        System.out.println("David Was Here");
+        InputFileReader reader = new InputFileReader();
+
+        HashMap<Integer, House> houses = reader.readHouse();
+        HashMap<String, Generator> generators = reader.readGenerators();
+        HashMap<String, Node> nodes = reader.readNode();
+        ArrayList<Link> links = reader.readLink(houses, nodes, generators);
+
     }
 }

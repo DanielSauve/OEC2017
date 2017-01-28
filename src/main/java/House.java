@@ -1,3 +1,4 @@
+import java.util.ArrayList;
 import java.util.HashMap;
 
 /**
@@ -9,8 +10,21 @@ public class House extends SuperNode{
 
     private HashMap<Integer, Integer> powerHistory;
 
+    public boolean equals(Object o) {
+        if (!(o instanceof House)) {
+            return false;
+        }
+
+        House h = (House) o;
+
+        return h.getId() == this.getId();
+
+    }
+
     public House(int id) {
         this.id = id;
+        this.powerHistory = new HashMap<Integer, Integer>();
+        this.links = new ArrayList<Link>();
     }
 
     public void setId(int id) {

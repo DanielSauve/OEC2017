@@ -4,6 +4,8 @@ import java.util.List;
 
 /**
  * Created by danielsauve on 2017-01-27.
+ * Implementation of Djikstra's shortest path algorithm. Will find the shortest path from the source node
+ * to any other node on the graph.
  */
 public class PathFinder {
     HashMap<SuperNode, SuperNode> previousNode;
@@ -35,6 +37,10 @@ public class PathFinder {
         }
     }
 
+    /**
+     * Creates the initial state of the algorithm where we have the source node and every adjacent node to the source
+     * @param graph The graph containing all the nodes
+     */
     public void execute(List<SuperNode> graph){
         this.resetCostAndPreviousNodes(graph);
 
@@ -52,6 +58,10 @@ public class PathFinder {
 
     }
 
+    /**
+     * Executes djikstra's algorithm on the entire graph, finding the shortest path to each node based on the cost
+     * of the links
+     */
     private void dijkstras() {
 
         while (!copyGraph.isEmpty()){
@@ -89,9 +99,9 @@ public class PathFinder {
 
     /**
      * returns cost in cents/kwh/distance for particular path.
-     * @param distance
-     * @param path
-     * @return
+     * @param distance The total distance to travel
+     * @param path The path that will be travelled
+     * @return The cost in dollars of the path
      */
     public Float getCostOfPath(Float distance, List<SuperNode> path) {
 
@@ -111,6 +121,11 @@ public class PathFinder {
     }
 
 
+    /**
+     * Uses the generated paths above to create the shortest path from a node to the source node
+     * @param node The node we are trying to find the path to
+     * @return The shortest path from the source node, to the parameter node
+     */
     public List<SuperNode> getPath(SuperNode node){
         List<SuperNode> path = new ArrayList<SuperNode>();
         SuperNode temp = node;
@@ -122,6 +137,11 @@ public class PathFinder {
         return path;
     }
 
+    /**
+     *
+     * @param node The node we want to find the cost to reach from the source node
+     * @return The cost to reach the node from the source node
+     */
     public Float getCost(SuperNode node){
         return costToNode.get(node);
     }

@@ -26,6 +26,11 @@ public class OEC2017 {
         for (Generator generator: generators.values()){
             generatorList.add(generator);
         }
+        List<House> houseList = new ArrayList<House>();
+        for (House house: houses.values()){
+            houseList.add(house);
+        }
+        reader.readHousePower(houses);
         PathPlanner planner = new PathPlanner(generatorList, graph);
 
         for (int i = 1; i <= 8; i++) {
@@ -52,10 +57,11 @@ public class OEC2017 {
         int input = -1;
         boolean validInput = false;
         while (true) {
+            validInput = false;
             while (!validInput) {
                 try {
                     input = Integer.parseInt(userIn.nextLine());
-
+                    validInput = true;
                 } catch (NumberFormatException e) {
                     System.out.println("Please enter valid integer option");
                     continue;
@@ -66,7 +72,22 @@ public class OEC2017 {
                     reader.promptForFileName();
                     break;
                 case 2:
-                    //TODO
+                    System.out.println("Which hour?");
+                    Integer hour = 0;
+                    validInput = false;
+                    while (!validInput) {
+                        try {
+                            hour = Integer.parseInt(userIn.nextLine());
+                            validInput = true;
+                        } catch (NumberFormatException e) {
+                            System.out.println("Please enter valid integer option");
+                            continue;
+                        }
+                    }
+                    List<House> onHouses = MetaFunctions.getOnHousesPerHour(houseList, hour);
+                    for(House house: onHouses){
+                        System.out.println(house);
+                    }
                     break;
                 case 3:
                     //TODO

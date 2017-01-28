@@ -38,7 +38,6 @@ public class PathPlanner {
      */
     public List<SuperNode> findPath(SuperNode node){
         Float cost = Float.MAX_VALUE;
-        Generator takenFrom = generators.get(0);
         List<SuperNode> path = new ArrayList<SuperNode>();
         for (Generator generator: generators){
             if (capacity.get(generator) == 0){
@@ -48,11 +47,9 @@ public class PathPlanner {
             Float temp = finder.getCostOfPath(finder.getCost(node), finder.getPath(node));
             if (temp < cost){
                 path = finder.getPath(node);
-                takenFrom = generator;
                 cost = temp;
             }
         }
-        capacity.put(takenFrom, capacity.get(takenFrom) - 3);
         return path;
     }
 
@@ -74,5 +71,9 @@ public class PathPlanner {
             }
         }
         return cost;
+    }
+
+    public void reduceCapacity(Generator generator){
+        capacity.put(generator, capacity.get(generator) - 3);
     }
 }

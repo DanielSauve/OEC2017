@@ -4,6 +4,8 @@ import java.util.List;
 
 /**
  * Created by danielsauve on 2017-01-28.
+ * Uses PathFinders to plan out the whole power grid from generators to the houses. Will reroute from other generators
+ * if a generator is over capacity
  */
 public class PathPlanner {
     private HashMap<Generator, PathFinder> finders;
@@ -29,6 +31,11 @@ public class PathPlanner {
         this.generators = generators;
     }
 
+    /**
+     * Find the cheapest path in dollars to a node
+     * @param node The node we want to find a path to
+     * @return The path to the above node
+     */
     public List<SuperNode> findPath(SuperNode node){
         Float cost = Float.MAX_VALUE;
         Generator takenFrom = generators.get(0);
@@ -49,6 +56,11 @@ public class PathPlanner {
         return path;
     }
 
+    /**
+     * Finds the dollar cost of a path from generator to a node
+     * @param node the node we want to find the cost to run
+     * @return The dollar cost of running the above node
+     */
     public Float findCost(SuperNode node){
         Float cost = Float.MAX_VALUE;
         for (Generator generator: generators){

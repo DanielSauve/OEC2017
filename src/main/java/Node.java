@@ -1,11 +1,31 @@
 /**
  * Created by puih123 on 2017-01-27.
  */
-public class Node {
+public class Node extends SuperNode{
 
     private String company;
     private int genID;
     private int id;
+
+    public Node(String company, int genID, int id) {
+        this.company = company;
+        this.genID = genID;
+        this.id = id;
+    }
+
+    public boolean equals(Object o) {
+
+        if (!(o instanceof Node)) {
+            return false;
+        }
+
+        Node n = (Node) o;
+
+        return(n.getCompany().equals(this.getCompany())
+            && n.getGenID() == this.getGenID()
+            && n.getId() == this.getId());
+
+    }
 
     public String getCompany() {
         return company;

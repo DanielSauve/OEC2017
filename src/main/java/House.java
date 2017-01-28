@@ -9,6 +9,17 @@ public class House extends SuperNode{
 
     private HashMap<Integer, Integer> powerHistory;
 
+    public boolean equals(Object o) {
+        if (!(o instanceof House)) {
+            return false;
+        }
+
+        House h = (House) o;
+
+        return h.getId() == this.getId();
+
+    }
+
     public House(int id) {
         this.id = id;
     }

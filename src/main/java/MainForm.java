@@ -1,5 +1,3 @@
-import org.eclipse.persistence.internal.sessions.DirectCollectionChangeRecord;
-
 import javax.swing.*;
 import java.awt.*;
 import java.awt.event.*;
@@ -28,6 +26,8 @@ public class MainForm {
     private JButton downButton;
     private JButton leftButton;
     private JButton rightButton;
+    private JTextArea outputText;
+    private JScrollPane scrollPane;
     private JFrame mainFrame;
 
     public MainForm() {
@@ -44,17 +44,6 @@ public class MainForm {
         incHourButton.addActionListener(new ActionListener() {
             public void actionPerformed(ActionEvent e) {
                 //step forward
-            }
-        });
-        graphicPanel.addMouseWheelListener(new MouseWheelListener() {
-            public void mouseWheelMoved(MouseWheelEvent e) {
-                graphicPanel.mouseScrolled(e.getWheelRotation());
-            }
-        });
-        graphicPanel.addMouseMotionListener(new MouseMotionAdapter() {
-            @Override
-            public void mouseDragged(MouseEvent e) {
-                super.mouseDragged(e);
             }
         });
         upButton.addActionListener(new ActionListener() {
@@ -75,6 +64,11 @@ public class MainForm {
         rightButton.addActionListener(new ActionListener() {
             public void actionPerformed(ActionEvent e) {
                 graphicPanel.rightClick();
+            }
+        });
+        deleteConnectionButton.addActionListener(new ActionListener() {
+            public void actionPerformed(ActionEvent e) {
+                //Delete connection
             }
         });
     }

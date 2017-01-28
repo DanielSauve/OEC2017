@@ -9,6 +9,7 @@ public class PathFinder {
     HashMap<SuperNode, SuperNode> previousNode;
     HashMap<SuperNode, Float> costToNode;
     SuperNode source;
+    List<SuperNode> copyGraph = new ArrayList<SuperNode>();
 
     public PathFinder(SuperNode source, List<SuperNode> graph){
         previousNode = new HashMap<SuperNode, SuperNode>();
@@ -17,8 +18,12 @@ public class PathFinder {
         this.execute(graph);
     }
 
-    public void execute(List<SuperNode> graph){
-        List<SuperNode> copyGraph = new ArrayList<SuperNode>();
+    /**
+     * Resets the hashmaps for cost and previous node for graph. Also recreates copy of graph
+     * @param graph
+     */
+    private void resetCostAndPreviousNodes(List<SuperNode> graph) {
+        copyGraph.clear();
         for (SuperNode superNode: graph){
             copyGraph.add(superNode);
             previousNode.put(source, null);
@@ -28,6 +33,12 @@ public class PathFinder {
                 costToNode.put(superNode, Float.MAX_VALUE);
             }
         }
+    }
+
+    public void execute(List<SuperNode> graph){
+        this.resetCostAndPreviousNodes(graph);
+
+        //Set the cost to the neighbours of the source not first before entering algorithm
         for (Link link: source.getLinks()){
             List<SuperNode> nodes = link.getNeighbours();
             for (SuperNode node: nodes){
@@ -36,17 +47,29 @@ public class PathFinder {
                 }
             }
         }
+
+        this.dijkstras();
+
+    }
+
+    private void dijkstras() {
+
         while (!copyGraph.isEmpty()){
+
+            //Find the node with the minimum distance in graph
             Float minimumDistance = Float.MAX_VALUE;
             SuperNode minimunNode = null;
-            for(SuperNode node: graph){
+            for(SuperNode node: copyGraph){
                 Float temp = costToNode.get(node);
                 if (temp < minimumDistance){
                     minimumDistance = temp;
                     minimunNode = node;
                 }
             }
-            copyGraph.remove(minimunNode);
+
+            copyGraph.remove(minimunNode);  //remove minimum node from list
+
+            //find and set minimum link from minimum node to graph
             for (Link link: minimunNode.getLinks()){
                 List<SuperNode> nodes = link.getNeighbours();
                 SuperNode neighbour = null;
@@ -63,6 +86,7 @@ public class PathFinder {
 
         }
     }
+
 
     public List<SuperNode> getPath(SuperNode node){
         List<SuperNode> path = new ArrayList<SuperNode>();

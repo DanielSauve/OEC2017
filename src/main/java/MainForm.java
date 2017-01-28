@@ -27,6 +27,14 @@ public class MainForm {
     private JButton leftButton;
     private JButton rightButton;
     private JTextArea outputText;
+    private JButton housesOnButton;
+    private JButton revenuePerHourButton;
+    private JButton revenueUpToButton;
+    private JTextArea generatorText;
+    private JButton goGenButton;
+    private JTextArea pathHouseText;
+    private JTextArea genPathText;
+    private JButton pathGoButton;
     private JScrollPane scrollPane;
     private JFrame mainFrame;
 
@@ -69,6 +77,31 @@ public class MainForm {
         deleteConnectionButton.addActionListener(new ActionListener() {
             public void actionPerformed(ActionEvent e) {
                 //Delete connection
+            }
+        });
+        goGenButton.addActionListener(new ActionListener() {
+            public void actionPerformed(ActionEvent e) {
+
+            }
+        });
+        pathGoButton.addActionListener(new ActionListener() {
+            public void actionPerformed(ActionEvent e) {
+
+            }
+        });
+        housesOnButton.addActionListener(new ActionListener() {
+            public void actionPerformed(ActionEvent e) {
+
+            }
+        });
+        revenuePerHourButton.addActionListener(new ActionListener() {
+            public void actionPerformed(ActionEvent e) {
+
+            }
+        });
+        revenueUpToButton.addActionListener(new ActionListener() {
+            public void actionPerformed(ActionEvent e) {
+
             }
         });
     }

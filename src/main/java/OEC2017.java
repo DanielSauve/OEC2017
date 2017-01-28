@@ -10,6 +10,7 @@ import java.util.List;
 public class OEC2017 {
     public static void main(String[] args){
         InputFileReader reader = new InputFileReader();
+        reader.promptForFileName();
 
         HashMap<Integer, House> houses = reader.readHouse();
         HashMap<String, Generator> generators = reader.readGenerators();

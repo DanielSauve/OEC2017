@@ -20,7 +20,12 @@ public class MetaFunctions {
 
         Integer revenue = planner.paths.keySet().size() * 3000;
 
-        
+        int power = planner.capacity.get(generator);
+
+        System.out.println("For Generator " + generator.toString() + " at hour " + hour.toString() + ".");
+        System.out.println("Cost = " + cost);
+        System.out.println("revenue = " + revenue);
+        System.out.println("power remaining = " + power);
 
 
     }

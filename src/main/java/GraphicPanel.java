@@ -20,6 +20,30 @@ public class GraphicPanel extends JPanel {
         super.paintComponent(g);
         this.gridManager.drawGrid(g);
     }
+
+    public void mouseScrolled(Integer scroll) {
+        if(scroll > 0) {
+            gridManager.increaseZoom();
+        } else {
+            gridManager.decreaseZoom();
+        }
+    }
+
+    public void upClick() {
+        gridManager.moveUp();
+    }
+
+    public void downClick() {
+        gridManager.moveDown();
+    }
+
+    public void rightClick() {
+        gridManager.moveRight();
+    }
+
+    public void leftClick() {
+        gridManager.moveLeft();
+    }
 //
 //    @Override
 //    public void actionPerformed(ActionEvent e) {

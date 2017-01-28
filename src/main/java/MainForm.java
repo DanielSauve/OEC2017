@@ -2,8 +2,7 @@ import org.eclipse.persistence.internal.sessions.DirectCollectionChangeRecord;
 
 import javax.swing.*;
 import java.awt.*;
-import java.awt.event.ActionEvent;
-import java.awt.event.ActionListener;
+import java.awt.event.*;
 import java.io.File;
 
 /**
@@ -24,6 +23,11 @@ public class MainForm {
     private JTextArea node2TextBok;
     private JButton deleteConnectionButton;
     private GraphicPanel graphicPanel;
+    private JPanel gridControlPanel;
+    private JButton upButton;
+    private JButton downButton;
+    private JButton leftButton;
+    private JButton rightButton;
     private JFrame mainFrame;
 
     public MainForm() {
@@ -40,6 +44,37 @@ public class MainForm {
         incHourButton.addActionListener(new ActionListener() {
             public void actionPerformed(ActionEvent e) {
                 //step forward
+            }
+        });
+        graphicPanel.addMouseWheelListener(new MouseWheelListener() {
+            public void mouseWheelMoved(MouseWheelEvent e) {
+                graphicPanel.mouseScrolled(e.getWheelRotation());
+            }
+        });
+        graphicPanel.addMouseMotionListener(new MouseMotionAdapter() {
+            @Override
+            public void mouseDragged(MouseEvent e) {
+                super.mouseDragged(e);
+            }
+        });
+        upButton.addActionListener(new ActionListener() {
+            public void actionPerformed(ActionEvent e) {
+                graphicPanel.upClick();
+            }
+        });
+        downButton.addActionListener(new ActionListener() {
+            public void actionPerformed(ActionEvent e) {
+                graphicPanel.downClick();
+            }
+        });
+        leftButton.addActionListener(new ActionListener() {
+            public void actionPerformed(ActionEvent e) {
+                graphicPanel.leftClick();
+            }
+        });
+        rightButton.addActionListener(new ActionListener() {
+            public void actionPerformed(ActionEvent e) {
+                graphicPanel.rightClick();
             }
         });
     }

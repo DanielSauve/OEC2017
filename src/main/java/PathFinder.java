@@ -74,12 +74,12 @@ public class PathFinder {
                 List<SuperNode> nodes = link.getNeighbours();
                 SuperNode neighbour = null;
                 for (SuperNode node: nodes){
-                    if (!node.equals(source)){
+                    if (!node.equals(minimunNode)){
                         neighbour = node;
                     }
                 }
-                if (costToNode.get(neighbour) > costToNode.get(minimunNode) + minimumDistance){
-                    costToNode.put(neighbour, costToNode.get(minimunNode) + minimumDistance);
+                if (costToNode.get(neighbour) > link.getCost() + minimumDistance){
+                    costToNode.put(neighbour, link.getCost() + minimumDistance);
                     previousNode.put(neighbour, minimunNode);
                 }
             }
@@ -87,12 +87,35 @@ public class PathFinder {
         }
     }
 
+    /**
+     * returns cost in cents/kwh/distance for particular path.
+     * @param distance
+     * @param path
+     * @return
+     */
+    private Float getCostOfPath(Float distance, List<SuperNode> path) {
+
+        Float cost = 5F * 3000 * distance;
+
+        for (SuperNode node: path) {
+
+            if (node instanceof Generator && !node.equals(source)) {
+                cost += 10F * 3000;
+                if (((Generator) node).getCompany().equals(((Generator) source).getCompany())) {
+                    cost += 30F * 3000;
+                }
+            }
+        }
+
+        return cost;   //Do all math in cents so that can convert to dollars after
+    }
+
 
     public List<SuperNode> getPath(SuperNode node){
         List<SuperNode> path = new ArrayList<SuperNode>();
         SuperNode temp = node;
         path.add(temp);
-        while (!temp.equals(source)){
+        while (!(previousNode.get(temp) == null)){
             path.add(previousNode.get(temp));
             temp = previousNode.get(temp);
         }

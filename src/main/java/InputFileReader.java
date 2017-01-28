@@ -10,9 +10,13 @@ import java.util.HashMap;
 public class InputFileReader {
 
     //TODO: MAKE THIS CHANGEABLE BY THE USER
-    private static final String fileName = "Test_Document.txt";
+    private String fileName = "Test_Document.txt";
 
     BufferedReader br;
+
+    public void setFileName(String fileName) {
+        this.fileName = fileName;
+    }
 
     public HashMap<Integer, House> read() {
 

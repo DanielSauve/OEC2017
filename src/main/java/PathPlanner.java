@@ -11,8 +11,12 @@ public class PathPlanner {
     private HashMap<Generator, PathFinder> finders;
     private HashMap<Generator, Integer> capacity;
     private List<Generator> generators;
+    private List<SuperNode> graph;
+    List<List<SuperNode>> paths;
+    HashMap<SuperNode, Float> costs;
 
     public PathPlanner(List<Generator> generators, List<SuperNode> graph){
+        this.graph = graph;
         finders = new HashMap<Generator, PathFinder>();
         capacity = new HashMap<Generator, Integer>();
         for (Generator generator: generators){
@@ -76,4 +80,33 @@ public class PathPlanner {
     public void reduceCapacity(Generator generator){
         capacity.put(generator, capacity.get(generator) - 3);
     }
+
+    public void getTopology(int hour) {
+
+        paths = new ArrayList<List<SuperNode>>();
+        costs = new HashMap<SuperNode, Float>();
+
+        for (SuperNode node: graph) {
+            if (node instanceof House) {
+                if (((House) node).getOn(hour) == 1) {
+                    Float cost = Float.MAX_VALUE;
+                    PathFinder minFinder = null;
+                    Generator generator = null;
+                    for (PathFinder finder: finders.values() ) {
+                         generator = (Generator) finder.source;
+                        if (finder.getCost(node) <  cost && capacity.get(generator) - 3 > 0) {
+                            cost = finder.getCost(node);
+                            minFinder = finder;
+                        }
+                    }
+                    capacity.put(generator, capacity.get(generator) - 3);
+                    paths.add(minFinder.getPath(node));
+                    costs.put(node, cost);
+                }
+            }
+        }
+
+
+    }
+
 }

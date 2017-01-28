@@ -22,8 +22,11 @@ public class OEC2017 {
         graph.addAll(houses.values());
         graph.addAll(generators.values());
         graph.addAll(nodes.values());
-
-        PathPlanner planner = new PathPlanner((List<Generator>) generators.values(), graph);
+        List<Generator> generatorList = new ArrayList<Generator>();
+        for (Generator generator: generators.values()){
+            generatorList.add(generator);
+        }
+        PathPlanner planner = new PathPlanner(generatorList, graph);
 
         for (int i = 1; i <= 8; i++) {
             for (House house : houses.values()) {

@@ -5,12 +5,29 @@ import java.util.List;
  * Created by danielsauve on 2017-01-28.
  */
 public class MetaFunctions {
-    public static void generatorInfoPerHour(Generator generator, List<SuperNode> graph, Integer hour){
+    public static void generatorInfoPerHour(Generator generator, PathPlanner planner, Integer hour){
+        planner.getTopology(hour);
+
+        Float cost = 0F;
+
+        for (SuperNode node:planner.graph) {
+            if (node instanceof House) {
+                if (((House) node).getOn(hour) == 1) {
+                    cost += planner.costs.get(node);
+                }
+            }
+        }
+
+        Integer revenue = planner.paths.keySet().size() * 3000;
+
+        
+
 
     }
 
-    public static List<SuperNode> houseInfoPerHour(House house, PathPlanner planner){
-        return planner.findPath(house);
+    public static List<SuperNode> houseInfoPerHour(House house, PathPlanner planner, int hour){
+        planner.getTopology(hour);
+        return planner.paths.get(house);
     }
 
     public static void cutLink(SuperNode node1, SuperNode node2){

@@ -1,4 +1,5 @@
 import java.util.ArrayList;
+import java.util.List;
 
 /**
  * Created by puih123 on 2017-01-27.
@@ -21,17 +22,17 @@ public class Link extends SuperNode{
 
         Link l = (Link) o;
 
-        return(l.cost == this.getCost()
+        return(l.cost.equals(this.getCost())
                 && l.getNeighbours().containsAll(this.getNeighbours())
                 && this.getNeighbours().containsAll(l.getNeighbours()));
 
     }
 
-    public int getCost() {
+    public Float getCost() {
         return cost;
     }
 
-    public void setCost(int cost) {
+    public void setCost(Float cost) {
         this.cost = cost;
     }
 
@@ -40,14 +41,6 @@ public class Link extends SuperNode{
     }
     public ArrayList<SuperNode> getNeighbours() {
         return neighbours;
-    }
-
-    public List<SuperNode> getNeighbours(){
-        return neighbours;
-    }
-
-    public Float getCost(){
-        return cost;
     }
 
 }

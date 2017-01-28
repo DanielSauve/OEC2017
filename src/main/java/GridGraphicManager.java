@@ -23,6 +23,8 @@ public class GridGraphicManager {
     public GridGraphicManager(GraphicPanel newPanel) {
         this.panel = newPanel;
         this.scaleFactor = 1;
+
+        //Set the current position of the display
         this.positionX = 200;
         this.positionY = 200;
 
@@ -31,9 +33,13 @@ public class GridGraphicManager {
         this.houses = new ArrayList<Pair<Integer, Integer>>();
         this.edges = new ArrayList<Edge>();
 
+        //Setup the display
         this.setupGrid();
     }
 
+    /**
+     * Sets up the grid to display.
+     */
     private void setupGrid() {
 
         Integer generatorSize = 50;
@@ -110,37 +116,64 @@ public class GridGraphicManager {
 
         g2d.setPaint(Color.BLACK);
 
+        //Draw all generators
         for( Generator gen : generators ) {
             drawGenerator(g2d, this.scaleFactor*(this.positionX+gen.x), this.scaleFactor*(this.positionY+gen.y));
+            g2d.drawString(gen.text, this.scaleFactor*(this.positionX+gen.x) + 5, this.scaleFactor*(this.positionY+gen.y) - 5);
         }
 
+        //Draw all control nodes
         for( Pair<Integer, Integer> controlNode : controlNodes ) {
             drawControl(g2d, this.scaleFactor*(this.positionX+controlNode.getKey()), this.scaleFactor*(this.positionY+controlNode.getValue()));
         }
+
+        //Draw all houses
         for( Pair<Integer, Integer> house : houses ) {
             drawHouse(g2d, this.scaleFactor*(this.positionX+house.getKey()), this.scaleFactor*(this.positionY+house.getValue()));
         }
 
+        //Draw all edges
         for( Edge edge : edges ) {
             g2d.drawLine(edge.x1,edge.y1,edge.x2,edge.y2);
         }
 
     }
 
+    /**
+     * Draws the representation of a house.
+     * @param g2d Graphics variable
+     * @param x x location to display
+     * @param y y location to display
+     */
     private void drawHouse(Graphics2D g2d, int x, int y) {
         g2d.drawRect(x, y, this.scaleFactor*50, this.scaleFactor*50);
     }
 
+    /**
+     * Draws the representation of a generator
+     * @param g2d Graphics variable
+     * @param x x location to display
+     * @param y y location to display
+     */
     private void drawGenerator(Graphics2D g2d, int x, int y) {
         int xset[] = {this.scaleFactor*x,this.scaleFactor*x+25,this.scaleFactor*x+50};
         int yset[] = {this.scaleFactor*y,this.scaleFactor*y-50,this.scaleFactor*y};
         g2d.drawPolygon(xset, yset, 3);
     }
 
+    /**
+     * Draws the representation of a control node
+     * @param g2d Graphics variable
+     * @param x x location to display
+     * @param y y location to display
+     */
     private void drawControl(Graphics2D g2d, int x, int y) {
         g2d.drawOval(this.scaleFactor*x, this.scaleFactor*y, this.scaleFactor*50, this.scaleFactor*25);
     }
 
+    /**
+     * Zooms in the display.
+     */
     public void increaseZoom() {
         if(this.scaleFactor < 10) {
             this.scaleFactor += 1;
@@ -148,6 +181,9 @@ public class GridGraphicManager {
         panel.repaint();
     }
 
+    /**
+     * Zoons out the display.
+     */
     public void decreaseZoom() {
         if(this.scaleFactor > 1) {
             this.scaleFactor -= 1;
@@ -155,26 +191,41 @@ public class GridGraphicManager {
         panel.repaint();
     }
 
+    /**
+     * Moves the display upwards.
+     */
     public void moveUp() {
         this.positionY += 50;
         panel.repaint();
     }
 
+    /**
+     * Moves the display downwards.
+     */
     public void moveDown() {
         this.positionY -= 50;
         panel.repaint();
     }
 
+    /**
+     * Moves the display left.
+     */
     public void moveLeft() {
         this.positionX += 50;
         panel.repaint();
     }
 
+    /**
+     * Moves the display right.
+     */
     public void moveRight() {
         this.positionX -= 50;
         panel.repaint();
     }
 
+    /**
+     * Object representation of an edge graphic.
+     */
     public class Edge {
 
         public Integer x1;
@@ -215,6 +266,9 @@ public class GridGraphicManager {
         }
     }
 
+    /**
+     * Object representation of a house graphic.
+     */
     public class House {
         public Integer x;
         public Integer y;
@@ -240,6 +294,9 @@ public class GridGraphicManager {
 
     }
 
+    /**
+     * Object representation of a control node graphic.
+     */
     public class ControlNode {
         public Integer x;
         public Integer y;
@@ -262,6 +319,9 @@ public class GridGraphicManager {
         }
     }
 
+    /**
+     * Object representation of a generator graphic.
+     */
     public class Generator {
         public Integer x;
         public Integer y;

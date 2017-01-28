@@ -21,33 +21,43 @@ public class GraphicPanel extends JPanel {
         this.gridManager.drawGrid(g);
     }
 
+    /**
+     * Handles a mouse scroll event, to zoom in the display.
+     * @param scroll The amount that was scrolled. Positive for down, negative for up.
+     */
     public void mouseScrolled(Integer scroll) {
-        if(scroll > 0) {
+        if(scroll < 0) {
             gridManager.increaseZoom();
         } else {
             gridManager.decreaseZoom();
         }
     }
 
+    /**
+     * Handler for the up button being clicked.
+     */
     public void upClick() {
         gridManager.moveUp();
     }
 
+    /**
+     * Handler for the down button being clicked.
+     */
     public void downClick() {
         gridManager.moveDown();
     }
 
+    /**
+     * Handler for the right button being clicked.
+     */
     public void rightClick() {
         gridManager.moveRight();
     }
 
+    /**
+     * Handler for the left button being clicked.
+     */
     public void leftClick() {
         gridManager.moveLeft();
     }
-//
-//    @Override
-//    public void actionPerformed(ActionEvent e) {
-//        repaint();
-//    }
-
 }

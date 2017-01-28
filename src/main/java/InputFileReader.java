@@ -1,9 +1,7 @@
-import java.io.BufferedReader;
-import java.io.FileNotFoundException;
-import java.io.FileReader;
-import java.io.IOException;
+import java.io.*;
 import java.util.ArrayList;
 import java.util.HashMap;
+import java.util.Scanner;
 
 /**
  * Created by Charberg on 1/21/2017.
@@ -18,6 +16,17 @@ public class InputFileReader {
     private static final String linkFile = "connect.txt";
 
     BufferedReader br;
+
+    public void promptForFileName() {
+        Scanner reader = new Scanner(System.in);
+        boolean validFile = false;
+        while(!validFile) {
+            System.out.println("Please enter the filename");
+            fileName = reader.nextLine();
+            File f = new File(fileName);
+            validFile = f.exists();
+        }
+    }
 
     public void setFileName(String fileName) {
         this.fileName = fileName;

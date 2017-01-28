@@ -93,7 +93,7 @@ public class PathFinder {
      * @param path
      * @return
      */
-    private Float getCostOfPath(Float distance, List<SuperNode> path) {
+    public Float getCostOfPath(Float distance, List<SuperNode> path) {
 
         Float cost = 5F * 3000 * distance;
 

@@ -22,8 +22,8 @@ public class GridGraphicManager {
     public GridGraphicManager(GraphicPanel newPanel) {
         this.panel = newPanel;
         this.scaleFactor = 1;
-        this.positionX = -200;
-        this.positionY = 400;
+        this.positionX = 0;
+        this.positionY = 0;
 
         this.generators = new ArrayList<Pair<Integer, Integer>>();
         this.controlNodes = new ArrayList<Pair<Integer, Integer>>();
@@ -69,6 +69,11 @@ public class GridGraphicManager {
 
         houses.add(new Pair<Integer, Integer>(700, 0)); //61
         houses.add(new Pair<Integer, Integer>(800, 0)); //62
+        houses.add(new Pair<Integer, Integer>(900, 0)); //63
+        houses.add(new Pair<Integer, Integer>(1000, 0)); //64
+        houses.add(new Pair<Integer, Integer>(1100, 0)); //65
+
+        houses.add(new Pair<Integer, Integer>(1100, 0)); //65
 
     }
 
@@ -78,14 +83,14 @@ public class GridGraphicManager {
         g2d.setPaint(Color.BLACK);
 
         for( Pair<Integer, Integer> gen : generators ) {
-            drawGenerator(g2d, this.positionX+gen.getKey(), this.positionY+gen.getValue());
+            drawGenerator(g2d, this.scaleFactor*(this.positionX+gen.getKey()), this.scaleFactor*(this.positionY+gen.getValue()));
         }
 
         for( Pair<Integer, Integer> controlNode : controlNodes ) {
-            drawControl(g2d, this.positionX+controlNode.getKey(), this.positionY+controlNode.getValue());
+            drawControl(g2d, this.scaleFactor*(this.positionX+controlNode.getKey()), this.scaleFactor*(this.positionY+controlNode.getValue()));
         }
         for( Pair<Integer, Integer> house : houses ) {
-            drawHouse(g2d, this.positionX+house.getKey(), this.positionY+house.getValue());
+            drawHouse(g2d, this.scaleFactor*(this.positionX+house.getKey()), this.scaleFactor*(this.positionY+house.getValue()));
         }
 
         for( Edge edge : edges ) {
@@ -105,7 +110,41 @@ public class GridGraphicManager {
     }
 
     private void drawControl(Graphics2D g2d, int x, int y) {
-        g2d.drawOval(this.scaleFactor*x, this.scaleFactor*y, 50, 25);
+        g2d.drawOval(this.scaleFactor*x, this.scaleFactor*y, this.scaleFactor*50, this.scaleFactor*25);
+    }
+
+    public void increaseZoom() {
+        if(this.scaleFactor < 10) {
+            this.scaleFactor += 1;
+        }
+        panel.repaint();
+    }
+
+    public void decreaseZoom() {
+        if(this.scaleFactor > 1) {
+            this.scaleFactor -= 1;
+        }
+        panel.repaint();
+    }
+
+    public void moveUp() {
+        this.positionY += 50;
+        panel.repaint();
+    }
+
+    public void moveDown() {
+        this.positionY -= 50;
+        panel.repaint();
+    }
+
+    public void moveLeft() {
+        this.positionX += 50;
+        panel.repaint();
+    }
+
+    public void moveRight() {
+        this.positionX -= 50;
+        panel.repaint();
     }
 
     public class Edge {

@@ -60,7 +60,7 @@ public class InputFileReader {
                 //If node defined
                 else if(values[0].equals("N")) {
                     index++;
-                    sup1 = generators.get(values[index]+values[index+1]+values[index+2]);
+                    sup1 = nodes.get(values[index]+values[index+1]+values[index+2]);
                     index = index+3;
                 }
 
@@ -78,11 +78,12 @@ public class InputFileReader {
                 //If node defined
                 else if(values[index].equals("N")) {
                     index++;
-                    sup2 = generators.get(values[index]+values[index+1]+values[index+2]);
+                    sup2 = nodes.get(values[index]+values[index+1]+values[index+2]);
                     index = index+3;
                 }
 
                 if(sup1 == null || sup2 == null) {
+                    System.out.println(line);
                     System.out.println("INVALID LINK DATA");
                     return null;
                 }
@@ -205,7 +206,6 @@ public class InputFileReader {
                 }
 
                 //Use for CSVs, or any common delimiter
-                System.out.println("Line: " + line);
                 String[] values = line.split(" ");
 
                 //Do something with these values

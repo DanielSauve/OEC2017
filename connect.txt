@@ -30,7 +30,7 @@ H 11 N A 1 5 0.5
 H 53 H 52 0.5
 H 52 H 51 0.5
 H 51 N A 1 6 0.5
-N 1 1 G A 1 1
+N A 1 1 G A 1 1
 G A 1 G A 2 3
 G A 1 G B 1 5
 G A 2 G B 1 4

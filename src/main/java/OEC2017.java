@@ -56,6 +56,8 @@ public class OEC2017 {
         Scanner userIn = new Scanner(System.in);
         int input = -1;
         boolean validInput = false;
+        int generator = 0;
+        Integer hour = 0;
         while (true) {
             validInput = false;
             while (!validInput) {
@@ -73,7 +75,7 @@ public class OEC2017 {
                     break;
                 case 2:
                     System.out.println("Which hour?");
-                    Integer hour = 0;
+
                     validInput = false;
                     while (!validInput) {
                         try {
@@ -90,10 +92,58 @@ public class OEC2017 {
                     }
                     break;
                 case 3:
-                    //TODO
+                    System.out.println("Which hour?");
+                    validInput = false;
+                    while (!validInput) {
+                        try {
+                            hour = Integer.parseInt(userIn.nextLine());
+                            validInput = true;
+                        } catch (NumberFormatException e) {
+                            System.out.println("Please enter valid integer option");
+                            continue;
+                        }
+                    }
+                    System.out.println("Which Generator?");
+                    validInput = false;
+                    while (!validInput) {
+                        try {
+                            generator = Integer.parseInt(userIn.nextLine());
+                            validInput = true;
+                        } catch (NumberFormatException e) {
+                            System.out.println("Please enter valid integer option");
+                            continue;
+                        }
+                    }
+                    Generator generator1 = generatorList.get(generator);
+
+                    MetaFunctions.generatorInfoPerHour(generator1,planner,hour);
                     break;
                 case 4:
-                    //TODO
+                    System.out.println("Which hour?");
+                    validInput = false;
+                    while (!validInput) {
+                        try {
+                            hour = Integer.parseInt(userIn.nextLine());
+                            validInput = true;
+                        } catch (NumberFormatException e) {
+                            System.out.println("Please enter valid integer option");
+                            continue;
+                        }
+                    }
+                    System.out.println("Which House?");
+                    validInput = false;
+                    while (!validInput) {
+                        try {
+                            generator = Integer.parseInt(userIn.nextLine());
+                            validInput = true;
+                        } catch (NumberFormatException e) {
+                            System.out.println("Please enter valid integer option");
+                            continue;
+                        }
+                    }
+                    House house = houseList.get(generator);
+                    List<SuperNode> houses1 =  MetaFunctions.houseInfoPerHour(house,planner, hour);
+                    System.out.println(houses1.toString());
                     break;
                 case 5:
                     //TODO

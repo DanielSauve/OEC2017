@@ -92,14 +92,16 @@ public class PathPlanner {
                     Float cost = Float.MAX_VALUE;
                     PathFinder minFinder = null;
                     Generator generator = null;
+                    Generator minGen = null;
                     for (PathFinder finder: finders.values() ) {
-                         generator = (Generator) finder.source;
+                        generator = (Generator) finder.source;
                         if (finder.getCost(node) <  cost && capacity.get(generator) - 3 > 0) {
+                            minGen = generator;
                             cost = finder.getCost(node);
                             minFinder = finder;
                         }
                     }
-                    capacity.put(generator, capacity.get(generator) - 3);
+                    capacity.put(minGen, capacity.get(minGen) - 3);
                     paths.put(node, minFinder.getPath(node));
                     costs.put(node, cost);
                 }

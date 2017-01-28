@@ -134,6 +134,7 @@ public class PathFinder {
             path.add(previousNode.get(temp));
             temp = previousNode.get(temp);
         }
+        path.add(source);
         return path;
     }
 

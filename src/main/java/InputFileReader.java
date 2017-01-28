@@ -1,7 +1,6 @@
 import java.io.*;
 import java.util.ArrayList;
 import java.util.HashMap;
-import java.util.List;
 import java.util.Scanner;
 
 /**
@@ -9,7 +8,6 @@ import java.util.Scanner;
  */
 public class InputFileReader {
 
-    //TODO: MAKE THIS CHANGEABLE BY THE USER
     private String fileName = "Test_Document.txt";
     private static final String genFile = "generators.txt";
     private static final String houseFile = "houses.txt";

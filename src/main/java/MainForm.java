@@ -1,7 +1,9 @@
 import javax.swing.*;
 import java.awt.*;
+import java.awt.List;
 import java.awt.event.*;
 import java.io.File;
+import java.util.*;
 
 /**
  * Created by David on 26/01/17.
@@ -38,13 +40,55 @@ public class MainForm {
     private JButton clearOutputButton;
     private JScrollPane scrollPane;
     private JFrame mainFrame;
+    private InputFileReader reader;
+    private HashMap<Integer, House> houses;
+    private HashMap<String, Generator> generators;
+    private HashMap<String, Node> nodes;
+    private ArrayList<Link> links;
+    private ArrayList<SuperNode> graph;
+    private java.util.List<Generator> generatorList;
+    private java.util.List<House> houseList;
+    private PathPlanner planner;
 
     public MainForm() {
+
+        reader = new InputFileReader();
+
+        houses = reader.readHouse();
+        generators = reader.readGenerators();
+        nodes = reader.readNode();
+        links = reader.readLink(houses, nodes, generators);
+
+        graph = new ArrayList<SuperNode>();
+        graph.addAll(houses.values());
+        graph.addAll(generators.values());
+        graph.addAll(nodes.values());
+        generatorList = new ArrayList<Generator>();
+        for (Generator generator: generators.values()){
+            generatorList.add(generator);
+        }
+        houseList = new ArrayList<House>();
+        for (House house: houses.values()){
+            houseList.add(house);
+        }
+        reader.readHousePower(houses);
+        planner = new PathPlanner(generatorList, graph);
+        MetaFunctions.printPath(planner.findPath(houseList.get(0)));
+        for (int i = 1; i <= 8; i++) {
+            for (House house : houses.values()) {
+                if (house.getOn(i) == 1) {
+                    java.util.List<SuperNode> path = planner.findPath(house);
+                    Float cost = planner.findCost(house);
+                }
+
+            }
+        }
 
         //Handle set hour button
         hourGoButton.addActionListener(new ActionListener() {
             public void actionPerformed(ActionEvent e) {
-                //hourTextInput.getText();
+
+
             }
         });
 
@@ -94,33 +138,53 @@ public class MainForm {
         deleteConnectionButton.addActionListener(new ActionListener() {
             public void actionPerformed(ActionEvent e) {
                 //Delete connection
+                String n1 = node1TextBox.getText();
+                String n2 = node2TextBok.getText();
+                //check if valid
+                //handleInput();
             }
         });
 
         //Give output for generator info button
         goGenButton.addActionListener(new ActionListener() {
             public void actionPerformed(ActionEvent e) {
-
+                String gen = generatorText.getText();
+                //Check gen
+                //handleInput();
             }
         });
 
         //Give output for path button
         pathGoButton.addActionListener(new ActionListener() {
             public void actionPerformed(ActionEvent e) {
-
+                String house = pathHouseText.getText();
+                String gen = pathHouseText.getText();
+                //check valid
+                //handleInput();
             }
         });
 
         //Give output for houses on button
         housesOnButton.addActionListener(new ActionListener() {
             public void actionPerformed(ActionEvent e) {
-
+                Integer value = checkInt(hourTextInput.getText());
+                if( value < 8 ) {
+                    java.util.List<House> onHouses = MetaFunctions.getOnHousesPerHour(houseList, value);
+                    for(House house: onHouses){
+                        outputText.append(house.toString());
+                    }
+                }
             }
         });
 
         //Give output for revenue per hour
         revenuePerHourButton.addActionListener(new ActionListener() {
             public void actionPerformed(ActionEvent e) {
+                //handleInput();
+                Integer hour = checkInt(hourTextInput.getText());
+                if(hour >= 0 && hour <= 8) {
+                    outputText.append(MetaFunctions.revenueInHour(hour, planner).toString());
+                }
 
             }
         });
@@ -128,7 +192,11 @@ public class MainForm {
         //Give output for revenue up to button
         revenueUpToButton.addActionListener(new ActionListener() {
             public void actionPerformed(ActionEvent e) {
-
+                //handleInput();
+                Integer hour = checkInt(hourTextInput.getText());
+                if(hour >= 0 && hour <= 8) {
+                    outputText.append( MetaFunctions.totalRevenueUpToHour(hour, planner).toString());
+                }
             }
         });
 
@@ -160,7 +228,11 @@ public class MainForm {
         JMenuItem fileOpenMenuItem = new JMenuItem("Load file...");
         fileOpenMenuItem.addActionListener(new ActionListener() {
             public void actionPerformed(ActionEvent e) {
-                loadFileDialog();
+                File file = loadFileDialog();
+                if(file.exists()) {
+                    reader.setFileName(file.getName());
+                }
+
             }
         });
 
@@ -195,6 +267,16 @@ public class MainForm {
     private void handleInput() {
 
     }
+
+    private Integer checkInt(String value) {
+        try {
+            Integer input = Integer.parseInt(value);
+            return input;
+        } catch (NumberFormatException e) {
+            return null;
+        }
+    }
+
     public static void main(String[] args) {
         MainForm form = new MainForm();
         form.setupForm();

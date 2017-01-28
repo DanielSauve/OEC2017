@@ -13,7 +13,7 @@ import static org.junit.Assert.assertEquals;
 public class PathFinderTest {
     private PathFinder pathFinder;
     private List<SuperNode> nodeList;
-    @Before
+
     public void setUp() throws Exception {
         Generator generator = new Generator("test", 1);
 
@@ -55,13 +55,13 @@ public class PathFinderTest {
         pathFinder = new PathFinder(generator, nodeList);
     }
 
-    @Test
+
     public void getPath() throws Exception {
-        assertEquals(pathFinder.getPath(nodeList.get(1)).size(), 1);
+        assertEquals(pathFinder.getPath(nodeList.get(1)).size(), 2);
         assertEquals(pathFinder.getPath(nodeList.get(2)).size(), 2);
     }
 
-    @Test
+
     public void getCost() throws Exception {
         assertEquals(pathFinder.getCost(nodeList.get(0)), new Float(0f));
         assertEquals(pathFinder.getCost(nodeList.get(1)), new Float(2.0f));

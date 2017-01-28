@@ -23,13 +23,13 @@ public class InputFileReader {
         this.fileName = fileName;
     }
 
-    public ArrayList<Link> readNode(HashMap<Integer, House> houses,
+    public ArrayList<Link> readLink(HashMap<Integer, House> houses,
                                     HashMap<String, Node> nodes,
                                     HashMap<String, Generator> generators) {
 
         try {
 
-            br = new BufferedReader(new FileReader(nodeFile));
+            br = new BufferedReader(new FileReader(linkFile));
 
             String line;
             while((line = br.readLine()) != null) {
@@ -43,9 +43,55 @@ public class InputFileReader {
 
                 //Do something with these values
 
-                Node node = new Node(values[0], Integer.parseInt(values[1]), Integer.parseInt(values[2]));
+                int index = 0;
+                SuperNode sup1 = null;
+                SuperNode sup2 = null;
+                //If a house is defined as first link
+                if(values[0].equals("H")) {
+                    index++;
+                    //Get the house
+                    sup1 = houses.get(Integer.parseInt(values[index]));
+                    index++;//If generator defined
+                } else if(values[0].equals("G")) {
+                    index++;
+                    sup1 = generators.get(values[index]+values[index+1]);
+                    index = index+2;
+                }
+                //If node defined
+                else if(values[0].equals("N")) {
+                    index++;
+                    sup1 = generators.get(values[index]+values[index+1]+values[index+2]);
+                    index = index+3;
+                }
 
-                nodes.put(values[0]+values[1]+values[2], node);
+                //Find second supernode in link
+                if(values[index].equals("H")) {
+                    index++;
+                    //Get the house
+                    sup2 = houses.get(Integer.parseInt(values[index]));
+                    index++;//If generator defined
+                } else if(values[index].equals("G")) {
+                    index++;
+                    sup2 = generators.get(values[index]+values[index+1]);
+                    index = index+2;
+                }
+                //If node defined
+                else if(values[index].equals("N")) {
+                    index++;
+                    sup2 = generators.get(values[index]+values[index+1]+values[index+2]);
+                    index = index+3;
+                }
+
+                if(sup1 == null || sup2 == null) {
+                    System.out.println("INVALID LINK DATA");
+                    return null;
+                }
+
+                Link link = new Link(Float.parseFloat(values[index]));
+                link.addNeighbour(sup1);
+                link.addNeighbour(sup2);
+                sup1.addLink(link);
+                sup2.addLink(link);
 
             }
 

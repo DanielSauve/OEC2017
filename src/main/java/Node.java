@@ -1,3 +1,5 @@
+import java.util.ArrayList;
+
 /**
  * Created by puih123 on 2017-01-27.
  */
@@ -11,6 +13,7 @@ public class Node extends SuperNode{
         this.company = company;
         this.genID = genID;
         this.id = id;
+        this.links = new ArrayList<Link>();
     }
 
     public boolean equals(Object o) {

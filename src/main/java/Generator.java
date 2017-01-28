@@ -1,3 +1,5 @@
+import java.util.ArrayList;
+
 /**
  * Created by puih123 on 2017-01-27.
  */
@@ -9,6 +11,7 @@ public class Generator extends SuperNode{
     public Generator(String company, int id) {
         this.company = company;
         this.id = id;
+        this.links = new ArrayList<Link>();
     }
 
     public boolean equals(Object o) {

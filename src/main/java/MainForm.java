@@ -35,73 +35,107 @@ public class MainForm {
     private JTextArea pathHouseText;
     private JTextArea genPathText;
     private JButton pathGoButton;
+    private JButton clearOutputButton;
     private JScrollPane scrollPane;
     private JFrame mainFrame;
 
     public MainForm() {
+
+        //Handle set hour button
         hourGoButton.addActionListener(new ActionListener() {
             public void actionPerformed(ActionEvent e) {
                 //hourTextInput.getText();
             }
         });
+
+        //Handle decrement hour button
         decHourButton.addActionListener(new ActionListener() {
             public void actionPerformed(ActionEvent e) {
                 //step back
             }
         });
+
+        //Handle increment hour button
         incHourButton.addActionListener(new ActionListener() {
             public void actionPerformed(ActionEvent e) {
                 //step forward
             }
         });
+
+        //Handle up click button
         upButton.addActionListener(new ActionListener() {
             public void actionPerformed(ActionEvent e) {
                 graphicPanel.upClick();
             }
         });
+
+        //Handle down click button
         downButton.addActionListener(new ActionListener() {
             public void actionPerformed(ActionEvent e) {
                 graphicPanel.downClick();
             }
         });
+
+        //handle left click button
         leftButton.addActionListener(new ActionListener() {
             public void actionPerformed(ActionEvent e) {
                 graphicPanel.leftClick();
             }
         });
+
+        //Handle right click button
         rightButton.addActionListener(new ActionListener() {
             public void actionPerformed(ActionEvent e) {
                 graphicPanel.rightClick();
             }
         });
+
+        //Give output for delete connection button
         deleteConnectionButton.addActionListener(new ActionListener() {
             public void actionPerformed(ActionEvent e) {
                 //Delete connection
             }
         });
+
+        //Give output for generator info button
         goGenButton.addActionListener(new ActionListener() {
             public void actionPerformed(ActionEvent e) {
 
             }
         });
+
+        //Give output for path button
         pathGoButton.addActionListener(new ActionListener() {
             public void actionPerformed(ActionEvent e) {
 
             }
         });
+
+        //Give output for houses on button
         housesOnButton.addActionListener(new ActionListener() {
             public void actionPerformed(ActionEvent e) {
 
             }
         });
+
+        //Give output for revenue per hour
         revenuePerHourButton.addActionListener(new ActionListener() {
             public void actionPerformed(ActionEvent e) {
 
             }
         });
+
+        //Give output for revenue up to button
         revenueUpToButton.addActionListener(new ActionListener() {
             public void actionPerformed(ActionEvent e) {
 
+            }
+        });
+
+        //Clear the output box
+        clearOutputButton.addActionListener(new ActionListener() {
+            public void actionPerformed(ActionEvent e) {
+                outputText.setText("");
             }
         });
     }
@@ -155,6 +189,12 @@ public class MainForm {
         return null;
     }
 
+    /**
+     * Handles all input designed for CLI version, and outputs it to the output box
+     */
+    private void handleInput() {
+
+    }
     public static void main(String[] args) {
         MainForm form = new MainForm();
         form.setupForm();

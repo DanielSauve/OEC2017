@@ -16,6 +16,10 @@ public class Node extends SuperNode{
         this.links = new ArrayList<Link>();
     }
 
+    public String toString() {
+        return "N: " + this.company+":"+this.genID+":"+this.id;
+    }
+
     public boolean equals(Object o) {
 
         if (!(o instanceof Node)) {

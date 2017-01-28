@@ -14,6 +14,10 @@ public class Generator extends SuperNode{
         this.links = new ArrayList<Link>();
     }
 
+    public String toString() {
+        return "G: " + this.company+":"+this.id;
+    }
+
     public boolean equals(Object o) {
 
         if (!(o instanceof Generator)) {

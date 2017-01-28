@@ -54,4 +54,15 @@ public class MetaFunctions {
         }
         return onHouses;
     }
+
+    public static void printPath(List<SuperNode> path){
+        for (int i = 0; i < path.size(); i++) {
+            SuperNode node = path.get(i);
+            System.out.print(node);
+            if (i < path.size() - 1){
+                System.out.print(" --> ");
+            }
+        }
+        System.out.println();
+    }
 }

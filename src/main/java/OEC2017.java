@@ -32,7 +32,7 @@ public class OEC2017 {
         }
         reader.readHousePower(houses);
         PathPlanner planner = new PathPlanner(generatorList, graph);
-
+        MetaFunctions.printPath(planner.findPath(houseList.get(0)));
         for (int i = 1; i <= 8; i++) {
             for (House house : houses.values()) {
                 if (house.getOn(i) == 1) {

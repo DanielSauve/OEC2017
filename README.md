@@ -36,12 +36,6 @@ All other external dependencies are managed by Maven. Maven is a software projec
 
 JUnit
 
-Website:
+Website: http://junit.org/junit4/
 
-JPA
-
-Website:
-
-SQLite
-
-Website:
+Used for some unit testing for the path planning portion of this program

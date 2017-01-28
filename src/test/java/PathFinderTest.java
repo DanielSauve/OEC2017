@@ -8,10 +8,11 @@ import static org.junit.Assert.assertEquals;
 
 /**
  * Created by danielsauve on 2017-01-27.
+ * Tests to ensure that the implementation of Djikstra's algorithm works
  */
 public class PathFinderTest {
-    PathFinder pathFinder;
-    List<SuperNode> nodeList;
+    private PathFinder pathFinder;
+    private List<SuperNode> nodeList;
     @Before
     public void setUp() throws Exception {
         Generator generator = new Generator("test", 1);

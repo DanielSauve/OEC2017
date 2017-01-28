@@ -1,5 +1,3 @@
-import org.eclipse.persistence.internal.sessions.DirectCollectionChangeRecord;
-
 import javax.swing.*;
 import java.awt.*;
 import java.awt.event.*;

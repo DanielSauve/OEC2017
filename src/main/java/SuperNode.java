@@ -13,4 +13,8 @@ public abstract class SuperNode {
     public List<Link> getLinks(){
         return links;
     }
+
+    public void removeLink(Link link){
+        links.remove(link);
+    }
 }

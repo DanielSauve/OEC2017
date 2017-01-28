@@ -27,6 +27,10 @@ public class House extends SuperNode{
         this.links = new ArrayList<Link>();
     }
 
+    public String toString() {
+        return "H: " + this.id;
+    }
+
     public void setId(int id) {
         this.id = id;
     }

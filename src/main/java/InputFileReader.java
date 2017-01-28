@@ -1,9 +1,7 @@
-import java.io.BufferedReader;
-import java.io.FileNotFoundException;
-import java.io.FileReader;
-import java.io.IOException;
+import java.io.*;
 import java.util.ArrayList;
 import java.util.HashMap;
+import java.util.Scanner;
 
 /**
  * Created by Charberg on 1/21/2017.
@@ -19,10 +17,32 @@ public class InputFileReader {
 
     BufferedReader br;
 
+    /**
+     * Prompt the user for the test data title name
+     */
+    public void promptForFileName() {
+        Scanner reader = new Scanner(System.in);
+        boolean validFile = false;
+        while(!validFile) {
+            System.out.println("Please enter the filename");
+            fileName = reader.nextLine();
+            File f = new File(fileName);
+            validFile = f.exists();
+        }
+    }
+
+
     public void setFileName(String fileName) {
         this.fileName = fileName;
     }
 
+    /**
+     * Read in link data from file, set parameter node links, and returns collection if Link instances
+     * @param houses Hashmap of houses, where the key is the house id
+     * @param nodes Hashmap of nodes, where the key is the string representation of the node
+     * @param generators Hashmap of generators, where the key is the string representation of the generator
+     * @return Collection of newly instantiated Link objects
+     */
     public ArrayList<Link> readLink(HashMap<Integer, House> houses,
                                     HashMap<String, Node> nodes,
                                     HashMap<String, Generator> generators) {
@@ -110,6 +130,10 @@ public class InputFileReader {
 
     }
 
+    /**
+     * Read in data from node config file
+     * @return Collection of nodes representing input data
+     */
     public HashMap<String,Node> readNode() {
 
         HashMap<String, Node> nodes = new HashMap<String, Node>();
@@ -150,6 +174,10 @@ public class InputFileReader {
 
     }
 
+    /**
+     * Read in data from house config file
+     * @return Collection of house objects representing input data
+     */
     public HashMap<Integer,House> readHouse() {
 
         HashMap<Integer, House> houses = new HashMap<Integer, House>();
@@ -190,6 +218,10 @@ public class InputFileReader {
 
     }
 
+    /**
+     * Read in data from generators config file
+     * @return Collection of generators representing input data
+     */
     public HashMap<String,Generator> readGenerators() {
 
         HashMap<String, Generator> generators = new HashMap<String, Generator>();
